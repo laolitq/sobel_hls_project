@@ -1,0 +1,183 @@
+
+
+================================================================
+== Vitis HLS Report for 'blockmatmul'
+================================================================
+* Date:           Fri Aug 12 13:09:12 2022
+
+* Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:45 MST 2020)
+* Project:        lab7
+* Solution:       solution3 (Vitis Kernel Flow Target)
+* Product family: zynq
+* Target device:  xc7z020-clg484-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  6.912 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+----------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline |
+    |   min   |   max   |    min   |    max   | min | max |   Type   |
+    +---------+---------+----------+----------+-----+-----+----------+
+    |      151|      215|  1.510 us|  2.150 us|  149|  149|  dataflow|
+    +---------+---------+----------+----------+-----+-----+----------+
+
+    + Detail: 
+        * Instance: 
+        +--------------------------+-----------------------+---------+---------+-----------+----------+-----+-----+---------+
+        |                          |                       |  Latency (cycles) |  Latency (absolute)  |  Interval | Pipeline|
+        |         Instance         |         Module        |   min   |   max   |    min    |    max   | min | max |   Type  |
+        +--------------------------+-----------------------+---------+---------+-----------+----------+-----+-----+---------+
+        |Loop_2_proc4_U0           |Loop_2_proc4           |      148|      148|   1.480 us|  1.480 us|  148|  148|     none|
+        |Loop_writeoutput_proc_U0  |Loop_writeoutput_proc  |       19|       19|   0.190 us|  0.190 us|   19|   19|     none|
+        |Block_split471_proc3_U0   |Block_split471_proc3   |        1|       65|  10.000 ns|  0.650 us|    1|   65|     none|
+        |blockmatmul_entry7_U0     |blockmatmul_entry7     |        0|        0|       0 ns|      0 ns|    0|    0|     none|
+        +--------------------------+-----------------------+---------+---------+-----------+----------+-----+-----+---------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-----+--------+-------+-----+
+|       Name      | BRAM_18K| DSP |   FF   |  LUT  | URAM|
++-----------------+---------+-----+--------+-------+-----+
+|DSP              |        -|    -|       -|      -|    -|
+|Expression       |        -|    -|       0|     12|    -|
+|FIFO             |        -|    -|      99|     68|    -|
+|Instance         |        0|    0|    5993|   7313|    -|
+|Memory           |        4|    -|     128|     16|    -|
+|Multiplexer      |        -|    -|       -|     18|    -|
+|Register         |        -|    -|       5|      -|    -|
++-----------------+---------+-----+--------+-------+-----+
+|Total            |        4|    0|    6225|   7427|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Available        |      280|  220|  106400|  53200|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Utilization (%)  |        1|    0|       5|     13|    0|
++-----------------+---------+-----+--------+-------+-----+
+
++ Detail: 
+    * Instance: 
+    +--------------------------+-----------------------+---------+----+------+------+-----+
+    |         Instance         |         Module        | BRAM_18K| DSP|  FF  |  LUT | URAM|
+    +--------------------------+-----------------------+---------+----+------+------+-----+
+    |Block_split471_proc3_U0   |Block_split471_proc3   |        0|   0|   155|   219|    0|
+    |Loop_2_proc4_U0           |Loop_2_proc4           |        0|   0|  4150|  1877|    0|
+    |Loop_writeoutput_proc_U0  |Loop_writeoutput_proc  |        0|   0|   575|  3036|    0|
+    |blockmatmul_entry7_U0     |blockmatmul_entry7     |        0|   0|     3|    29|    0|
+    |control_s_axi_U           |control_s_axi          |        0|   0|  1110|  2152|    0|
+    +--------------------------+-----------------------+---------+----+------+------+-----+
+    |Total                     |                       |        0|   0|  5993|  7313|    0|
+    +--------------------------+-----------------------+---------+----+------+------+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    +-------+-------+---------+-----+----+-----+------+-----+------+-------------+
+    | Memory| Module| BRAM_18K|  FF | LUT| URAM| Words| Bits| Banks| W*Bits*Banks|
+    +-------+-------+---------+-----+----+-----+------+-----+------+-------------+
+    |A_U    |A      |        4|    0|   0|    0|    32|   32|     1|         1024|
+    |AB_U   |AB     |        0|  128|  16|    0|    16|   32|     1|          512|
+    +-------+-------+---------+-----+----+-----+------+-----+------+-------------+
+    |Total  |       |        4|  128|  16|    0|    48|   64|     2|         1536|
+    +-------+-------+---------+-----+----+-----+------+-----+------+-------------+
+
+    * FIFO: 
+    +--------+---------+----+----+-----+------+-----+---------+
+    |  Name  | BRAM_18K| FF | LUT| URAM| Depth| Bits| Size:D*B|
+    +--------+---------+----+----+-----+------+-----+---------+
+    |it_c_U  |        0|  99|   0|    -|     2|   32|       64|
+    +--------+---------+----+----+-----+------+-----+---------+
+    |Total   |        0|  99|   0|    0|     2|   32|       64|
+    +--------+---------+----+----+-----+------+-----+---------+
+
+    * Expression: 
+    +-------------------------------------------+----------+----+---+----+------------+------------+
+    |               Variable Name               | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +-------------------------------------------+----------+----+---+----+------------+------------+
+    |Loop_writeoutput_proc_U0_ap_start          |       and|   0|  0|   2|           1|           1|
+    |ap_idle                                    |       and|   0|  0|   2|           1|           1|
+    |ap_sync_ready                              |       and|   0|  0|   2|           1|           1|
+    |blockmatmul_entry7_U0_ap_start             |       and|   0|  0|   2|           1|           1|
+    |ap_sync_Loop_writeoutput_proc_U0_ap_ready  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_blockmatmul_entry7_U0_ap_ready     |        or|   0|  0|   2|           1|           1|
+    +-------------------------------------------+----------+----+---+----+------------+------------+
+    |Total                                      |          |   0|  0|  12|           6|           6|
+    +-------------------------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-----------------------------------------------+----+-----------+-----+-----------+
+    |                      Name                     | LUT| Input Size| Bits| Total Bits|
+    +-----------------------------------------------+----+-----------+-----+-----------+
+    |ap_sync_reg_Loop_writeoutput_proc_U0_ap_ready  |   9|          2|    1|          2|
+    |ap_sync_reg_blockmatmul_entry7_U0_ap_ready     |   9|          2|    1|          2|
+    +-----------------------------------------------+----+-----------+-----+-----------+
+    |Total                                          |  18|          4|    2|          4|
+    +-----------------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-----------------------------------------------+---+----+-----+-----------+
+    |                      Name                     | FF| LUT| Bits| Const Bits|
+    +-----------------------------------------------+---+----+-----+-----------+
+    |ap_rst_n_inv                                   |  1|   0|    1|          0|
+    |ap_rst_reg_1                                   |  1|   0|    1|          0|
+    |ap_rst_reg_2                                   |  1|   0|    1|          0|
+    |ap_sync_reg_Loop_writeoutput_proc_U0_ap_ready  |  1|   0|    1|          0|
+    |ap_sync_reg_blockmatmul_entry7_U0_ap_ready     |  1|   0|    1|          0|
+    +-----------------------------------------------+---+----+-----+-----------+
+    |Total                                          |  5|   0|    5|          0|
+    +-----------------------------------------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-----------------------+-----+-----+---------------+--------------+--------------+
+|       RTL Ports       | Dir | Bits|    Protocol   | Source Object|    C Type    |
++-----------------------+-----+-----+---------------+--------------+--------------+
+|s_axi_control_AWVALID  |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_AWREADY  |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_AWADDR   |   in|    8|          s_axi|       control|        scalar|
+|s_axi_control_WVALID   |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_WREADY   |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_WDATA    |   in|   32|          s_axi|       control|        scalar|
+|s_axi_control_WSTRB    |   in|    4|          s_axi|       control|        scalar|
+|s_axi_control_ARVALID  |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_ARREADY  |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_ARADDR   |   in|    8|          s_axi|       control|        scalar|
+|s_axi_control_RVALID   |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_RREADY   |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_RDATA    |  out|   32|          s_axi|       control|        scalar|
+|s_axi_control_RRESP    |  out|    2|          s_axi|       control|        scalar|
+|s_axi_control_BVALID   |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_BREADY   |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_BRESP    |  out|    2|          s_axi|       control|        scalar|
+|ap_clk                 |   in|    1|  ap_ctrl_chain|   blockmatmul|  return value|
+|ap_rst_n               |   in|    1|  ap_ctrl_chain|   blockmatmul|  return value|
+|interrupt              |  out|    1|  ap_ctrl_chain|   blockmatmul|  return value|
+|Arows_V_dout           |   in|  128|        ap_fifo|       Arows_V|       pointer|
+|Arows_V_empty_n        |   in|    1|        ap_fifo|       Arows_V|       pointer|
+|Arows_V_read           |  out|    1|        ap_fifo|       Arows_V|       pointer|
+|Bcols_V_dout           |   in|  128|        ap_fifo|       Bcols_V|       pointer|
+|Bcols_V_empty_n        |   in|    1|        ap_fifo|       Bcols_V|       pointer|
+|Bcols_V_read           |  out|    1|        ap_fifo|       Bcols_V|       pointer|
++-----------------------+-----+-----+---------------+--------------+--------------+
+
